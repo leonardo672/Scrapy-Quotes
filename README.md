@@ -1,4 +1,4 @@
-[Quotes_Items.csv](https://github.com/user-attachments/files/17604579/Quotes_Items.csv)# Анализ проекта: Quotes Scraper
+# Анализ проекта: Quotes Scraper
 
 ## Обзор
 Этот проект включает создание веб-скребка с использованием фреймворка Scrapy для сбора данных с сайта [quotes.toscrape.com](http://quotes.toscrape.com). Собранные данные включают цитаты, авторов и теги с нескольких страниц и сохраняются в файле JSON для анализа или других случаев использования.
