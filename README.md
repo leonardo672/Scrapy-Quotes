@@ -27,13 +27,13 @@
 ##### В методе parse я использовал CSS селекторы для извлечения текста цитаты, имени автора и связанных тегов из каждого элемента на странице. Данные собираются в виде словаря и передаются с помощью yield.
 ##### 
     def parse(self, response):
-    # Парсинг цитат
-      for quote in response.css("div.quote"):
-          yield {
-              'text': quote.css("span.text::text").get(),
-              'author': quote.css("small.author::text").get(),
-              'tags': quote.css("div.tags a.tag::text").getall(),
-          }
+      # Парсинг цитат
+        for quote in response.css("div.quote"):
+            yield {
+                'text': quote.css("span.text::text").get(),
+                'author': quote.css("small.author::text").get(),
+                'tags': quote.css("div.tags a.tag::text").getall(),
+            }
 #### 1.8 Настроил паука для обработки пагинации, идентифицируя и следуя за кнопкой "Следующая страница" на каждой странице.
 ##### Я добавил код, который проверяет наличие ссылки на следующую страницу и, если она существует, переходит по этой ссылке, продолжая парсинг.
 #####
@@ -55,12 +55,12 @@
 #### 1.11 Хранение данных:
 ##### Указал формат вывода как JSON с помощью:
 ##### 
-      scrapy crawl quotes -o Quotes_Items.json
+    scrapy crawl quotes -o Quotes_Items.json
 
 #### 1.12 Создал дополнительные выходные файлы в формате XML и CSV для анализа, чтобы обеспечить гибкость в использовании:
 ##### 
-      scrapy crawl quotes -o Quotes_Items.xml 
-      scrapy crawl quotes -o Quotes_Items.csv
+    scrapy crawl quotes -o Quotes_Items.xml 
+    scrapy crawl quotes -o Quotes_Items.csv
 
 
 
