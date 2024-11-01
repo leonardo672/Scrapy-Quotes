@@ -9,12 +9,15 @@
 ### ![Screenshot (2191)](https://github.com/user-attachments/assets/7704cd0f-b605-4127-b29c-25af2974ddf0)
 
 #### 1.3 Активация виртуальной среды: Виртуальная среда была активирована с помощью команды:
-##### .\Scripts\activate
+##### 
+    .\Scripts\activate
 ##### (Эта команда предназначена для пользователей Windows.)
 #### 1.4 Установка Scrapy: Scrapy был установлен, выполнив следующую команду:
-##### pip install scrapy
+##### 
+    pip install scrapy
 #### 1.5 Создание проекта Scrapy: Новый проект Scrapy был создан с помощью команды:
-##### scrapy startproject quotes_scraper
+##### 
+    scrapy startproject quotes_scraper
 #### 1.6 Определил целевые страницы паука, установив start_urls на главную страницу.
 ##### В классе QuotesSpider я указал начальный URL для парсинга цитат. Это начальная страница сайта, с которой начинается сбор данных.
 ##### start_urls = [
@@ -22,36 +25,42 @@
 ]
 #### 1.7 Добавил код для разбора цитат, авторов и тегов, используя CSS селекторы внутри метода parse.
 ##### В методе parse я использовал CSS селекторы для извлечения текста цитаты, имени автора и связанных тегов из каждого элемента на странице. Данные собираются в виде словаря и передаются с помощью yield.
-##### def parse(self, response):
+##### 
+    def parse(self, response):
     # Парсинг цитат
-    for quote in response.css("div.quote"):
-        yield {
-            'text': quote.css("span.text::text").get(),
-            'author': quote.css("small.author::text").get(),
-            'tags': quote.css("div.tags a.tag::text").getall(),
-        }
+      for quote in response.css("div.quote"):
+          yield {
+              'text': quote.css("span.text::text").get(),
+              'author': quote.css("small.author::text").get(),
+              'tags': quote.css("div.tags a.tag::text").getall(),
+          }
 #### 1.8 Настроил паука для обработки пагинации, идентифицируя и следуя за кнопкой "Следующая страница" на каждой странице.
 ##### Я добавил код, который проверяет наличие ссылки на следующую страницу и, если она существует, переходит по этой ссылке, продолжая парсинг.
-##### next_page = response.css("li.next a::attr(href)").get()
+#####
+    next_page = response.css("li.next a::attr(href)").get()
 ##### if next_page is not None:
     yield response.follow(next_page, self.parse)
 #### 1.9 Определение моделей для собираемых данных
 ##### В файле items.py я определил модель для собираемых элементов, создавая класс QuotesScraperItem, который структурирует данные:
-##### class QuotesScraperItem(scrapy.Item):
-    Text = scrapy.Field()    # Поле для текста цитаты
-    Author = scrapy.Field()  # Поле для имени автора
-    Tags = scrapy.Field()     # Поле для тегов цитаты
+##### 
+    class QuotesScraperItem(scrapy.Item):
+        Text = scrapy.Field()    # Поле для текста цитаты
+        Author = scrapy.Field()  # Поле для имени автора
+        Tags = scrapy.Field()     # Поле для тегов цитаты
 #### 1.10 После завершения разработки паука, я запустил команду для выполнения скрипта и сбора данных:
-##### scrapy crawl quotes
+##### 
+    scrapy crawl quotes
 ##### Мы запускаем команду scrapy crawl quotes перед созданием файла Quotes_Items.json, чтобы инициировать процесс веб-скрейпинга. По умолчанию Scrapy не создает файлы вывода автоматически; вместо этого выполняется логика скрейпинга, определенная в пауке. Чтобы сохранить собранные данные в файл, можно добавить опцию вывода (например, -o Quotes_Items.json) при запуске команды. Таким образом, данные собираются и одновременно сохраняются в указанный JSON-файл. Без запуска команды паук не выполнит скрейпинг и не создаст файл с результатами.
 
 #### 1.11 Хранение данных:
 ##### Указал формат вывода как JSON с помощью:
-##### scrapy crawl quotes -o Quotes_Items.json
+##### 
+      scrapy crawl quotes -o Quotes_Items.json
 
 #### 1.12 Создал дополнительные выходные файлы в формате XML и CSV для анализа, чтобы обеспечить гибкость в использовании:
-##### scrapy crawl quotes -o Quotes_Items.xml
-##### scrapy crawl quotes -o Quotes_Items.csv
+##### 
+      scrapy crawl quotes -o Quotes_Items.xml 
+      scrapy crawl quotes -o Quotes_Items.csv
 
 
 
