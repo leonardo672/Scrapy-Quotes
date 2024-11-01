@@ -15,5 +15,31 @@
 ##### pip install scrapy
 #### 1.5 Создание проекта Scrapy: Новый проект Scrapy был создан с помощью команды:
 ##### scrapy startproject quotes_scraper
+#### 1.6 Определил целевые страницы паука, установив start_urls на главную страницу.
+##### В классе QuotesSpider я указал начальный URL для парсинга цитат. Это начальная страница сайта, с которой начинается сбор данных.
+##### start_urls = [
+    'http://quotes.toscrape.com/page/1/',  
+]
+#### 1.7 Добавил код для разбора цитат, авторов и тегов, используя CSS селекторы внутри метода parse.
+##### В методе parse я использовал CSS селекторы для извлечения текста цитаты, имени автора и связанных тегов из каждого элемента на странице. Данные собираются в виде словаря и передаются с помощью yield.
+##### def parse(self, response):
+    # Парсинг цитат
+    for quote in response.css("div.quote"):
+        yield {
+            'text': quote.css("span.text::text").get(),
+            'author': quote.css("small.author::text").get(),
+            'tags': quote.css("div.tags a.tag::text").getall(),
+        }
+#### 1.8 Настроил паука для обработки пагинации, идентифицируя и следуя за кнопкой "Следующая страница" на каждой странице.
+##### Я добавил код, который проверяет наличие ссылки на следующую страницу и, если она существует, переходит по этой ссылке, продолжая парсинг.
+##### next_page = response.css("li.next a::attr(href)").get()
+##### if next_page is not None:
+    yield response.follow(next_page, self.parse)
+#### 1.9 Определение моделей для собираемых данных
+##### В файле items.py я определил модель для собираемых элементов, создавая класс QuotesScraperItem, который структурирует данные:
+##### class QuotesScraperItem(scrapy.Item):
+    Text = scrapy.Field()    # Поле для текста цитаты
+    Author = scrapy.Field()  # Поле для имени автора
+    Tags = scrapy.Field()     # Поле для тегов цитаты
 
 
