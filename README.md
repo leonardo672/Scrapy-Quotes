@@ -8,7 +8,7 @@ Python был установлен на системе, а также среда
 ### 1.2 Создание нового проекта: 
 В PyCharm был создан новый проект с именем quotes_scraper, в котором автоматически была настроена новая виртуальная среда.
 
-### ![Screenshot (2191)](https://github.com/user-attachments/assets/7704cd0f-b605-4127-b29c-25af2974ddf0)
+<img src="[your-image.jpg](https://github.com/user-attachments/assets/7704cd0f-b605-4127-b29c-25af2974ddf0)" alt="Создание_нового_проекта" style="width:300px; height:200px;">
 
 ### 1.3 Активация виртуальной среды: Виртуальная среда была активирована с помощью команды:
 ##### 
